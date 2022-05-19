@@ -1,12 +1,35 @@
 #include <iostream>
-#include <string>
-#include <unordered_map>
+#include <fstream>
 #include <vector>
-#include <tuple>
 
-int main(){
-    std::tuple<int, double, bool> tup {1,42.0,false};
-    int arg1  = std::get<0>(tup);
-    std::cout << arg1 << std::endl;
+using std::cout; using std::cerr;
+using std::endl; using std::string;
+using std::ifstream; using std::vector;
+
+int main()
+{
+    string filename("graph1.txt");
+    vector<string> lines;
+    string line;
+
+    ifstream input_file(filename);
+    if (!input_file.is_open()) {
+        cerr << "Could not open the file - '"
+             << filename << "'" << endl;
+        return EXIT_FAILURE;
+    }
+
+    while (getline(input_file, line)){
+        lines.push_back(line);
+    }
+
+    for (const auto &i : lines){
+        char origin = i[0];
+        for (const auto &j : i){
+            cout << j << endl;
+        }
+    }
+
+    input_file.close();
+    return EXIT_SUCCESS;
 }
-

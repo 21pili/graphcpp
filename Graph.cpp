@@ -4,13 +4,40 @@
 #include <vector>
 #include <tuple>
 #include <unordered_map>
+#include <fstream>
 
-Graph::Graph(std::string filename):
-    std::tuple<std::unordered_map<std::string, std::vector <Edge> >, int, int> graph_attributes = read(filename);
-    vertex_number(std::get<1>(graph_attributes)),
-    edge_number(std::get<2>(graph_attributes)),
-    edges(std::get<0>(graph_attributes))
+using std::cout; using std::cerr;
+using std::endl; using std::string;
+using std::ifstream; using std::vector;
+
+std::unordered_map<std::string, std::vector<Edge> > empty_dictionary;
+
+Graph::Graph():
+    edges(empty_dictionary)
 {};
+
+void Graph::init(std::string filename){
+    std::vector<std::string> vertexes;
+    std::string line;
+    ifstream input_file(filename);
+    getline(input_file, line);
+    for (char c : line){
+        vertexes.push_back(c);
+    }
+    int index_origin = 0;
+    int index_target = 0;
+    while (getline(input_file, line)){
+        for (char c : line){
+            if (c == ','){
+                index_target++;
+            }
+            else {
+                double value = c;
+                edges[vertexes[index_origin]] = Edge(vertexes[index_target],value);
+            }
+        }
+    }
+}
 
 bool Graph::vertex_in_graph(std::string vertex){
     if (edges.count(vertex) == 0){

@@ -5,13 +5,12 @@
 
 class Graph{
     std::unordered_map<std::string, std::vector<Edge> > edges;
-    int vertex_number;
-    int edge_number;
 
     public:
 
-    Graph(std::string filename);
-    void print_graph(Graph graph);
+    Graph();
+    void init(std::string filename);
+    void print();
     void add_edge(std::string origin, std::string target, double value);
     bool vertex_in_graph(std::string vertex);
     void depth_first_search_recursif();
