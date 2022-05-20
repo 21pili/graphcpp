@@ -1,10 +1,7 @@
 #include "Graph.h"
-#include "Edge.h"
-#include <iostream>
 #include <vector>
-#include <tuple>
-#include <unordered_map>
 #include <fstream>
+#include <iterator>
 
 using std::cout; using std::cerr;
 using std::endl; using std::string;
@@ -13,7 +10,7 @@ using std::ifstream; using std::vector;
 std::unordered_map<std::string, std::vector<Edge> > empty_dictionary;
 
 Graph::Graph():
-    edges(empty_dictionary)
+    edges_dict(empty_dictionary)
 {};
 
 void Graph::init(std::string filename){
@@ -21,8 +18,9 @@ void Graph::init(std::string filename){
     std::string line;
     ifstream input_file(filename);
     getline(input_file, line);
-    for (char c : line){
-        vertexes.push_back(c);
+    for (char letter : line){
+        std::string vertex = std::string(1,letter);
+        vertexes.push_back(vertex);
     }
     int index_origin = 0;
     int index_target = 0;
@@ -33,14 +31,15 @@ void Graph::init(std::string filename){
             }
             else {
                 double value = c;
-                edges[vertexes[index_origin]] = Edge(vertexes[index_target],value);
+                edges_dict[vertexes[index_origin]].push_back(Edge(vertexes[index_target],value));
             }
         }
+        index_origin++;
     }
 }
 
 bool Graph::vertex_in_graph(std::string vertex){
-    if (edges.count(vertex) == 0){
+    if (edges_dict.count(vertex) == 0){
         return false;
     }
     return true;
@@ -48,7 +47,22 @@ bool Graph::vertex_in_graph(std::string vertex){
 
 void Graph::add_edge(std::string origin, std::string target, double value){
     if (!vertex_in_graph(origin)){
-        edges[origin] = Edge(target, value);
+        edges_dict[origin].push_back(Edge(target, value));
     }
 }
-// on définit ici la fonction read.
+
+void Graph::print(){
+    std::unordered_map<std::string, std::vector<Edge> >::iterator it = edges_dict.begin();
+    while (it != edges_dict.end()){
+        std::string origin = it->first;
+        std::cout << origin << std::endl;
+        std::vector<Edge> edges = it->second;
+        for (Edge edge : edges){
+            edge.print();
+        }
+    }
+}
+
+std::unordered_map<std::string, std::vector<Edge> > Graph::get_dict(){
+    return edges_dict;
+}

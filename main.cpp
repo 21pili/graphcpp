@@ -1,35 +1,18 @@
+#include "Graph.h"
 #include <iostream>
-#include <fstream>
 #include <vector>
+#include <tuple>
+#include <unordered_map>
+#include <fstream>
+#include <iterator>
 
-using std::cout; using std::cerr;
-using std::endl; using std::string;
-using std::ifstream; using std::vector;
 
-int main()
-{
-    string filename("graph1.txt");
-    vector<string> lines;
-    string line;
-
-    ifstream input_file(filename);
-    if (!input_file.is_open()) {
-        cerr << "Could not open the file - '"
-             << filename << "'" << endl;
-        return EXIT_FAILURE;
-    }
-
-    while (getline(input_file, line)){
-        lines.push_back(line);
-    }
-
-    for (const auto &i : lines){
-        char origin = i[0];
-        for (const auto &j : i){
-            cout << j << endl;
-        }
-    }
-
-    input_file.close();
-    return EXIT_SUCCESS;
+int main(){
+    std::string filename;
+    std::cout << "enter a file name" << std::endl;
+    std::cin >> filename;
+    Graph graph;
+    graph.init(filename);
+    int number_vertexes = graph.get_dict().size();
+    std::cout << "Le graphe est composé de " << number_vertexes << " sommets" << std::endl;
 }

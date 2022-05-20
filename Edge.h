@@ -8,4 +8,5 @@ class Edge{
     public:
 
     Edge(std::string target, double value);
+    void print();
 };

@@ -1,16 +1,17 @@
-#include <Edge.h>
+#include "Edge.h"
 #include <iostream>
 #include <string>
 #include <unordered_map>
 
 class Graph{
-    std::unordered_map<std::string, std::vector<Edge> > edges;
+    std::unordered_map<std::string, std::vector<Edge> > edges_dict;
 
     public:
 
     Graph();
     void init(std::string filename);
     void print();
+    std::unordered_map<std::string, std::vector<Edge> > get_dict();
     void add_edge(std::string origin, std::string target, double value);
     bool vertex_in_graph(std::string vertex);
     void depth_first_search_recursif();
