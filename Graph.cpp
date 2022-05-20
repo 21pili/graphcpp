@@ -25,12 +25,13 @@ void Graph::init(std::string filename){
     int index_origin = 0;
     int index_target = 0;
     while (getline(input_file, line)){
+        index_target = 0;
         for (char c : line){
             if (c == ','){
                 index_target++;
             }
             else {
-                double value = c;
+                int value = c - 48;
                 edges_dict[vertexes[index_origin]].push_back(Edge(vertexes[index_target],value));
             }
         }
@@ -52,13 +53,12 @@ void Graph::add_edge(std::string origin, std::string target, double value){
 }
 
 void Graph::print(){
-    std::unordered_map<std::string, std::vector<Edge> >::iterator it = edges_dict.begin();
-    while (it != edges_dict.end()){
-        std::string origin = it->first;
-        std::cout << origin << std::endl;
-        std::vector<Edge> edges = it->second;
-        for (Edge edge : edges){
+    for (auto const &pair: edges_dict) {
+        std::cout << "origin: " << pair.first;
+        std::cout << std::endl;
+        for (Edge edge : pair.second){
             edge.print();
+            std::cout << std::endl;
         }
     }
 }

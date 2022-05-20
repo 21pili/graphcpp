@@ -14,5 +14,6 @@ int main(){
     Graph graph;
     graph.init(filename);
     int number_vertexes = graph.get_dict().size();
+    graph.print();
     std::cout << "Le graphe est composé de " << number_vertexes << " sommets" << std::endl;
 }
