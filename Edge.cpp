@@ -8,3 +8,11 @@ Edge::Edge(std::string target, double value):
 void Edge::print(){
     std::cout << "--" << value << "-->" << target << std::endl;
 }
+
+std::string Edge::get_target(){
+    return target;
+}
+
+double Edge::get_value(){
+    return value;
+}

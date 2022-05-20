@@ -2,6 +2,9 @@
 #include <vector>
 #include <fstream>
 #include <iterator>
+#include <stack>
+#include <queue>
+
 
 using std::cout; using std::cerr;
 using std::endl; using std::string;
@@ -47,8 +50,11 @@ bool Graph::vertex_in_graph(std::string vertex){
 }
 
 void Graph::add_edge(std::string origin, std::string target, double value){
-    if (!vertex_in_graph(origin)){
-        edges_dict[origin].push_back(Edge(target, value));
+    if (vertex_in_graph(origin))
+    edges_dict[origin].push_back(Edge(target, value));
+    else {
+        std::vector<Edge> edge {Edge(target,value)};
+        edges_dict.insert({origin,edge});
     }
 }
 
@@ -63,6 +69,17 @@ void Graph::print(){
     }
 }
 
-std::unordered_map<std::string, std::vector<Edge> > Graph::get_dict(){
+std::unordered_map<std::string, std::vector<Edge> > Graph::dict(){
     return edges_dict;
+}
+
+void Graph::explore(std::string vertex, std::set<std::string> flagged){
+    flagged.insert(vertex);
+    std::cout << vertex << std::endl;
+    for (Edge edge : edges_dict[vertex]){
+        std::string target = edge.get_target();
+        if (!flagged.contains(target)){
+            explore(target,flagged);
+        }
+    }
 }

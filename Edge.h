@@ -9,4 +9,6 @@ class Edge{
 
     Edge(std::string target, double value);
     void print();
+    std::string get_target();
+    double get_value();
 };
