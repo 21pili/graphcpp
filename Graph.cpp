@@ -50,17 +50,23 @@ bool Graph::vertex_in_graph(std::string vertex){
 }
 
 void Graph::add_edge(std::string origin, std::string target, double value){
-    if (vertex_in_graph(origin))
-    edges_dict[origin].push_back(Edge(target, value));
+    if (vertex_in_graph(origin)){
+        edges_dict[origin].push_back(Edge(target, value));
+    }
     else {
         std::vector<Edge> edge {Edge(target,value)};
         edges_dict.insert({origin,edge});
     }
+    if(!vertex_in_graph(target)){
+        std::vector<Edge> empty {};
+        edges_dict.insert({target,empty});
+    }
 }
 
 void Graph::print(){
+    std::cout << "*****************************" << std::endl;
     for (auto const &pair: edges_dict) {
-        std::cout << "origin: " << pair.first;
+        std::cout << "origin: " << pair.first << std::endl;
         std::cout << std::endl;
         for (Edge edge : pair.second){
             edge.print();
