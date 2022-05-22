@@ -79,13 +79,31 @@ std::unordered_map<std::string, std::vector<Edge> > Graph::dict(){
     return edges_dict;
 }
 
-void Graph::explore(std::string vertex, std::set<std::string> flagged){
+void Graph::explore(std::string vertex, std::set<std::string>& flagged){
     flagged.insert(vertex);
-    std::cout << vertex << std::endl;
+    std::cout << vertex;
     for (Edge edge : edges_dict[vertex]){
         std::string target = edge.get_target();
         if (!flagged.contains(target)){
+            std::cout << " -> ";
             explore(target,flagged);
         }
+    std::cout << std::endl;
     }
+}
+
+void Graph::depth_first_search_recursif(){
+    std::cout << "*******Parcours en profondeur récursif*******" << std::endl;
+    std::set<std::string> flagged;
+    for (auto const &pair: edges_dict){
+        if (!flagged.contains(pair.first)){
+            explore(pair.first,flagged);
+        }
+    }
+}
+
+void Graph::depth_first_search_recursif(const std::string& origin){
+    std::cout << "*******Parcours en profondeur récursif en partant de " << origin << std::endl;
+    std::set<std::string> flagged;
+    explore(origin,flagged);
 }
