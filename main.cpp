@@ -8,7 +8,6 @@ int main(){
     std::cin >> filename;
     Graph graph;
     graph.init(filename);
-    int number_vertexes = graph.dict().size();
     graph.print();
     graph.breadth_first_search();
 }

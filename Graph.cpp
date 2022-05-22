@@ -24,6 +24,8 @@ void Graph::init(std::string filename){
     for (char letter : line){
         std::string vertex = std::string(1,letter);
         vertexes.push_back(vertex);
+        std::vector<Edge> empty {};
+        edges_dict.insert({vertex,empty});
     }
     int index_origin = 0;
     int index_target = 0;
@@ -99,6 +101,7 @@ void Graph::depth_first_search_recursif(){
         if (!flagged.contains(pair.first)){
             explore(pair.first,flagged);
         }
+        std::cout << std::endl;
     }
 }
 
