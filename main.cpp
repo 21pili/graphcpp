@@ -10,5 +10,5 @@ int main(){
     graph.init(filename);
     int number_vertexes = graph.dict().size();
     graph.print();
-    graph.depth_first_search_recursif("e");
+    graph.breadth_first_search();
 }

@@ -103,7 +103,83 @@ void Graph::depth_first_search_recursif(){
 }
 
 void Graph::depth_first_search_recursif(const std::string& origin){
-    std::cout << "*******Parcours en profondeur récursif en partant de " << origin << std::endl;
+    std::cout << "*******Parcours en profondeur récursif en partant de " << origin <<  "*******" << std::endl;
     std::set<std::string> flagged;
     explore(origin,flagged);
+}
+
+void Graph::depth_first_search_iteratif(const std::string& origin){
+    std::stack<std::string> stack;
+    std::set<std::string> flagged;
+    stack.push(origin);
+    while (!stack.empty()){
+        std::string vertex = stack.top();
+        stack.pop();
+        if (!flagged.contains(vertex)){
+            flagged.insert(vertex);
+            std::cout << vertex << " -> ";
+            for (Edge edge : edges_dict[vertex]){
+                stack.push(edge.get_target());
+            }
+        }
+    }
+    std::cout << std::endl;
+}
+
+void Graph::depth_first_search_iteratif(){
+    std::stack<std::string> stack;
+    std::set<std::string> flagged;
+    for (auto const &pair: edges_dict){
+        stack.push(pair.first);
+    }
+    while (!stack.empty()){
+        std::string vertex = stack.top();
+        stack.pop();
+        if (!flagged.contains(vertex)){
+            flagged.insert(vertex);
+            std::cout << vertex << " -> ";
+            for (Edge edge : edges_dict[vertex]){
+                stack.push(edge.get_target());
+            }
+        }
+    }
+    std::cout << std::endl;
+}
+
+void Graph::breadth_first_search(const std::string& origin){
+    std::queue<std::string> queue;
+    std::set<std::string> flagged;
+    queue.push(origin);
+    while (!queue.empty()){
+        std::string vertex = queue.front();
+        queue.pop();
+        if (!flagged.contains(vertex)){
+            flagged.insert(vertex);
+            std::cout << vertex << " -> ";
+            for (Edge edge : edges_dict[vertex]){
+                queue.push(edge.get_target());
+            }
+        }
+    }
+    std::cout << std::endl;
+}
+
+void Graph::breadth_first_search(){
+    std::queue<std::string> queue;
+    std::set<std::string> flagged;
+    for (auto const &pair: edges_dict){
+        queue.push(pair.first);
+    }
+    while (!queue.empty()){
+        std::string vertex = queue.front();
+        queue.pop();
+        if (!flagged.contains(vertex)){
+            flagged.insert(vertex);
+            std::cout << vertex << " -> ";
+            for (Edge edge : edges_dict[vertex]){
+                queue.push(edge.get_target());
+            }
+        }
+    }
+    std::cout << std::endl;
 }

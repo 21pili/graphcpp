@@ -21,7 +21,7 @@ class Graph{
     void depth_first_search_recursif (const std::string& vertex_source);
     void depth_first_search_iteratif ();
     void depth_first_search_iteratif (const std::string& vertex_source) ;
-    void breadth_first_search () const;
+    void breadth_first_search ();
     void breadth_first_search (const std::string & first_vertex);
 
 };
