@@ -8,6 +8,10 @@
 class Graph{
     std::unordered_map<std::string, std::vector<Edge> > edges_dict;
 
+    private:
+
+    void explore(std::string vertex, std::set<std::string>& flagged);
+
     public:
 
     Graph();
@@ -16,7 +20,6 @@ class Graph{
     std::unordered_map<std::string, std::vector<Edge> > dict();
     void add_edge(std::string origin, std::string target, double value);
     bool vertex_in_graph(std::string vertex);
-    void explore(std::string vertex, std::set<std::string>& flagged);
     void depth_first_search_recursif();
     void depth_first_search_recursif (const std::string& vertex_source);
     void depth_first_search_iteratif ();

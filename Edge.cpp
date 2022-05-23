@@ -6,7 +6,7 @@ Edge::Edge(std::string target, double value):
 {}
 
 void Edge::print(){
-    std::cout << "--" << value << "--> " << target << std::endl;
+    std::cout << "--" << value << "--> " << target << "\n";
 }
 
 std::string Edge::get_target(){
