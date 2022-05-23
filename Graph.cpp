@@ -55,14 +55,14 @@ void Graph::init(std::string filename){
     }
 }
 
-bool Graph::vertex_in_graph(std::string vertex){
+bool Graph::vertex_in_graph(const std::string& vertex){
     if (edges_dict.count(vertex) == 0){
         return false;
     }
     return true;
 }
 
-void Graph::add_edge(std::string origin, std::string target, double value){
+void Graph::add_edge(const std::string& origin,const std::string& target,const double& value){
     if (vertex_in_graph(origin)){
         edges_dict[origin].push_back(Edge(target, value));
     }
@@ -84,14 +84,10 @@ void Graph::print(){
             edge.print();
         }
     }
-    std::cout << std::endl;
+    std::cout << "*****************************" << std::endl;
 }
 
-std::unordered_map<std::string, std::vector<Edge> > Graph::dict(){
-    return edges_dict;
-}
-
-void Graph::explore(std::string vertex, std::set<std::string>& flagged){
+void Graph::explore(const std::string& vertex, std::set<std::string>& flagged){
     flagged.insert(vertex);
     std::cout << vertex << " -> ";
     for (Edge edge : edges_dict[vertex]){
